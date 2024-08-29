@@ -1,8 +1,9 @@
+#remplacer les * par son identifiant
 from pymongo import MongoClient
 from bson.objectid import ObjectId
-c=MongoClient("mongo2.iem", port=27017, username="ah975865", password="ah975865",
-authSource="ah975865", authMechanism="SCRAM-SHA-1")
-db=c.ah975865 
+c=MongoClient("mongo2.iem", port=27017, username="********", password="********",
+authSource="********", authMechanism="SCRAM-SHA-1")
+db=c.********
 from pprint import pprint 
 
 #affiche le nombre de billet vendus pour les films ayant une note > a 9
