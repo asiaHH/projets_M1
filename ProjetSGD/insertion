@@ -1,0 +1,483 @@
+//Creation de la collection CentreFilm
+db.createCollection("CentreFilm")
+//////////////////////////////////////////////////////////
+
+//Insertion de la collection CentreFilm avec les documents suivants :
+db.CentreFilm.insertMany([
+    {"id": 10,
+  "titre":"Monk",
+        "description":"un detective qui souffre d'un certains nombres de peurs incontrolables resout des cas.",
+        "duree":2.50,
+        "nbEntree":870000,
+        "réalisateur": {
+            "nom": "Andy",
+            "prénom": "Breckman",
+            "âge": 69,  
+            "nombreFilms": 10
+        },
+        "budget":500000,
+        "notation":8.1,
+        "prixBillet":7,
+        "nbCommentaire":8745613,
+        "genre":"drame",
+        "date":"02/06/2002",
+        "heure":"13h30",
+        "paysOrigine":"Etat-Unis",
+        "Recompenses":{},
+        "lieuTournage":"Los Angeles",
+       "salles":[
+        {
+          "numero":1,
+          "capacite":56
+        }, 
+        {
+          "numero":2,
+          "capacite":34
+        },
+        {
+          "numero":3,
+          "capacite":78
+        }],
+        "acteurs":[
+          {
+            "nom":"Tony Shalhoub",
+            "age":70,
+            "DatedeNaissance":"09/10/1953",
+            "nbFilmRealises":18,
+            "sexe":"masculin"
+          },
+          {
+            "nom":"Traylor Howard",
+            "age":57,
+            "DatedeNaissance":"14/07/1966",
+            "nbFilmRealises":11,
+            "sexe":"feminin"
+          },
+          {
+            "nom":"Jason Gray",
+            "age":53,
+            "DatedeNaissance":"19/05/1970",
+            "nbFilmRealises":8,
+            "sexe":"masculin"
+          }
+        ],
+        "commentaires":[
+          {
+            "id":12,
+            "DatePublication":"02/07/2002",
+            "ReseauSociaux":"Twitter",
+            "auteur":"Imanoush",
+            "contenu":"film tres inspirant, j'ai beaucoup aimé l'acteur principale:)",
+            "note":6,
+            "type":"textuel et note"
+          },
+          {
+            "id":17,
+            "DatePublication":"14/07/2002",
+            "ReseauSociaux":"Twitter",
+            "auteur":"PopStar",
+            "contenu":"Un film de qualite, drôle et intriguante a la fois.",
+            "type":"textuel"
+          },
+          {
+            "id":11,
+            "DatePublication":"02/06/2002",
+            "ReseauSociaux":"Twitter",
+            "auteur":"LeMuet",
+            "contenu":"Tres bonne decouverte au cinema, je voulais le voir en famille c'est dommage. Je reviendrais!",
+            "note":10,
+            "type":"textuel et note"
+          },
+          {
+            "id":16,
+            "DatePublication":"10/06/2002",
+            "ReseauSociaux":"Twitter",
+            "auteur":"Beaute",
+            "note":10,
+            "type":"note"
+          }
+        ]
+      },
+     {"id": 20, 
+      "titre":"Breaking Bad",
+      "description":"Walter White, 50 ans, est professeur de chimie dans un lycée de nouveau Mexique. Pour reunir de l'argent afin de subvenir aux besoins de sa familles, Walter met ses connaissances en chimie a profit pour fabriquer et vendre du crystal meth.",
+      "duree":1.58,
+      "nbEntree":2478100,
+      "réalisateur": {
+        "nom": "Gilligan",
+        "prénom": "Vince",
+        "âge": 57, 
+        "nombreFilms": 13 
+      },
+      "budget":8000000,
+      "notation":9.5,
+      "prixBillet":12,
+      "nbCommentaire":19258333,
+      "genre":"Drame",
+      "date":"15/01/2008",
+      "heure":"18h30",
+      "paysOrigine":"Etat-Unis",
+      "Récompenses": [
+        {
+          "Nom": "Primetime Emmy Awards",
+          "Nombre": 16,
+          "Catégories": ["Meilleure série dramatique"]
+        },
+        {
+          "Nom": "Golden Globes Awards",
+          "Nombre": 8,
+          "Catégories": ["Meilleure série dramatique"]
+        },
+        {
+          "Nom": "Peabody Awards",
+          "Nombre": 2
+        }
+      ],
+      "lieuTournage":"Albuquerque",
+     "salles":[
+      {
+        "numero":5,
+        "capacite":47
+      }, 
+      {
+        "numero":2,
+        "capacite":34
+      },
+      {
+        "numero":3,
+        "capacite":78
+      },
+      {
+        "numero":12,
+        "capacite":100
+      },
+      {
+        "numero":7,
+        "capacite":85
+      }],
+      "acteurs":[
+        {
+          "nom":"Bryan Cranston",
+          "age":67,
+          "DatedeNaissance":"07/03/1956",
+          "nbFilmRealises":13,
+          "sexe":"masculin"
+        },
+        {
+          "nom":"Aaron Paul",
+          "age":44,
+          "DatedeNaissance":"27/08/1979",
+          "nbFilmRealises":4,
+          "sexe":"masculin"
+        },
+        {
+          "nom":"Anna Gunn",
+          "age":55,
+          "DatedeNaissance":"11/08/1968",
+          "nbFilmRealises":5,
+          "sexe":"feminin"
+        }
+      ],
+      "commentaires":[
+        {
+          "id":20,
+          "DatePublication":"15/01/2008",
+          "ReseauSociaux":"Facebook",
+          "auteur":"Imanoush",
+          "contenu":"J'ai adore ce film du debut a la fin:)",
+          "note":10,
+          "type":"textuel et note"
+        },
+        {
+          "id":25,
+          "DatePublication":"17/01/2008",
+          "ReseauSociaux":"Twitter",
+          "auteur":"BobMarley",
+          "contenu":"C'est tout simplement catastrophique, du temps perdus, je deconseille....",
+          "type":"textuel"
+        },
+        {
+          "id":28,
+          "DatePublication":"14/08/2008",
+          "ReseauSociaux":"Twitter",
+          "auteur":"Yaoh",
+          "contenu":"Tres decu!",
+          "type":"textuel"
+        }
+      ]
+    },
+    { "id": 30,
+      "titre":"Le parrain",
+     "description":"Le Parrain est un film de gangsters americains realise par Francis Ford Coppola et sorti en 1972.",
+     "duree":2.55,
+     "nbEntree":16321489,
+     "réalisateur": {
+      "nom": "Coppola",
+      "prénom": "Francis Ford",
+      "âge": 84,
+      "nombreFilms": 49
+    },
+     "budget":950000,
+     "notation":9,
+     "prixBillet":8,
+     "nbCommentaire":13699875,
+     "genre":"Crime",
+     "date":"02/05/1972",
+     "heure":"20h30",
+     "paysOrigine":"américano-italienne",
+     "Récompenses": [
+        {
+          "Nom": "Oscars",
+          "Nombre": 3,
+          "Catégories": [
+            "Meilleur film",
+            "Meilleur acteur pour Marlon Brando",
+            "Meilleur scénario adapté"
+          ]
+        },
+        {
+          "Nom": "Golden Globes Awards",
+          "Nombre": 6,
+          "Catégories": [
+            "Meilleur film dramatique",
+            "Meilleur réalisateur pour Francis Ford Coppola",
+            "Meilleur acteur dans un film dramatique pour Marlon Brando",
+            "Meilleur acteur dans un rôle secondaire pour Al Pacino",
+            "Meilleur scénario",
+            "Meilleure musique originale"
+          ]
+        },
+        {
+          "Nom": "British Academy Film Awards (BAFTA)",
+          "Nombre": 7,
+          "Catégories": [
+            "Meilleur film",
+            "Meilleur réalisateur pour Francis Ford Coppola",
+            "Meilleur acteur pour Marlon Brando",
+            "Meilleur acteur dans un second rôle pour Al Pacino",
+            "Meilleur scénario",
+            "Meilleur montage",
+            "Meilleure direction artistique"
+          ]
+        },
+        {
+          "Nom": "Festival de Cannes",
+          "Nombre": 1,
+          "Catégories": ["Palme d'or"]
+        },
+        {
+          "Nom": "American Film Institute",
+          "Nombre": 1,
+          "Catégories": ["100 plus grands films américains de tous les temps (1er rang)"]
+        }
+    ],
+    "lieuTournage": ["États-Unis", "Italie"],
+    "salles":[
+     {
+       "numero":1,
+       "capacite":56
+     }, 
+     {
+       "numero":16,
+       "capacite":112
+     },
+     {
+       "numero":3,
+       "capacite":78
+     },
+     {
+       "numero":12,
+       "capacite":100
+     },
+     {
+       "numero":11,
+       "capacite":90
+     }],
+     "acteurs":[
+       {
+         "nom":"Alfredo Pacino",
+         "age":83,
+         "DatedeNaissance":"25/04/1940",
+         "nbFilmRealises":51,
+         "sexe":"masculin"
+       },
+       {
+         "nom":"Marlon Brando",
+         "age":0,
+         "DatedeNaissance":"03/04/1924",
+         "nbFilmRealises":51,
+         "sexe":"masculin"
+       },
+       {
+         "nom":"James Caan",
+         "age":0,
+         "DatedeNaissance":"26/04/1940",
+         "nbFilmRealises":16,
+         "sexe":"masculin"
+       },
+       {
+         "nom":"Diane Keaton",
+         "age":78,
+         "DatedeNaissance":"05/01/1946",
+         "nbFilmRealises":30,
+         "sexe":"feminin"
+       }
+     ],
+     "commentaires":[
+       {
+         "id":151,
+         "DatePublication":"26/05/2015",
+         "ReseauSociaux":"Facebook",
+         "auteur":"Guimzy",
+         "contenu":"C'est a se demander si ca vait vraiment le coup de lui donner une note.Que dire devant un tel film.Exceptionnels!",
+         "note":10,
+         "type":"textuel et note"
+       },
+       {
+         "id":1019,
+         "DatePublication":"20/10/2013",
+         "ReseauSociaux":"Instagram",
+         "auteur":"Roy",
+         "contenu":"Ce film est entre dans la legende cinematographique comme etant un authentique et novateur chef d'oeuvre.",
+         "note":10,
+         "type":"textuel"
+       },
+       {
+         "id":317,
+         "DatePublication":"25/02/2014",
+         "ReseauSociaux":"Twitter",
+         "auteur":"maxime",
+         "contenu":"Ce film est considere comme l'un des meilleurs film de tout les temps, il meritait que je le vois.",
+         "type":"textuel"
+       },
+       {
+         "id":2,
+         "DatePublication":"24/02/2023",
+         "ReseauSociaux":"Twitter",
+         "auteur":"Bloomy",
+         "contenu":"Exceptionnelle interpretation de l'un des meilleurs acteurs du monde Marlon Brando.Une tres bonne adaptation du roman. A voir et a revoir.",
+         "note":10,
+         "type":"textuel"
+       },
+       {
+         "id":87,
+         "DatePublication":"29/01/2000",
+         "ReseauSociaux":"facebook",
+         "auteur":"benoit",
+         "note":9,
+         "type":"textuel"
+       }
+     ]
+   }
+  ]
+
+)
+///////////////////////////////////////////////////////////
+
+
+
+
+//Insertion d'un nouveau document (un nouveau film) dans la collection CentreFilm
+db.CentreFilm.insertOne({
+  "id": 20,
+  "titre": "Joker",
+  "description": "Arthur Fleck, un comédien de stand-up raté, bascule peu à peu dans la folie et devient le criminel psychotique connu sous le nom de Joker.",
+  "duree": 2.02,
+  "nbEntree": 10000000,
+  "réalisateur": {
+    "nom": "Phillips",
+    "prénom": "Todd",
+    "âge": 49,
+    "nombreFilms": 11
+  },
+  "budget": 55000000,
+  "notation": 8.5,
+  "prixBillet": 15,
+  "nbCommentaire": 17534896,
+  "genre": "Drame",
+  "date": "04/10/2019",
+  "heure": "20h00",
+  "paysOrigine": "États-Unis",
+  "Récompenses": [
+    {
+      "Nom": "Oscars",
+      "Nombre": 2,
+      "Catégories": [
+        "Meilleur acteur pour Joaquin Phoenix",
+        "Meilleure musique originale"
+      ]
+    },
+    {
+      "Nom": "Golden Globes Awards",
+      "Nombre": 1,
+      "Catégories": ["Meilleur acteur pour Joaquin Phoenix"]
+    }
+  ],
+  "lieuTournage": "New York",
+  "salles": [
+    {
+      "numero": 10,
+      "capacite": 150
+    },
+    {
+      "numero": 7,
+      "capacite": 90
+    },
+    {
+      "numero": 4,
+      "capacite": 65
+    }
+  ],
+  "acteurs": [
+    {
+      "nom": "Joaquin Phoenix",
+      "age": 48,
+      "DatedeNaissance": "28/10/1974",
+      "nbFilmRealises": 44,
+      "sexe": "masculin"
+    },
+    {
+      "nom": "Robert De Niro",
+      "age": 78,
+      "DatedeNaissance": "17/08/1943",
+      "nbFilmRealises": 96,
+      "sexe": "masculin"
+    },
+    {
+      "nom": "Zazie Beetz",
+      "age": 30,
+      "DatedeNaissance": "25/05/1991",
+      "nbFilmRealises": 15,
+      "sexe": "féminin"
+    }
+  ],
+  "commentaires": [
+    {
+      "id": 200,
+      "DatePublication": "05/10/2019",
+      "ReseauSociaux": "Twitter",
+      "auteur": "Cinelover",
+      "contenu": "Chef-d'œuvre absolu, Joaquin Phoenix est magistral!",
+      "note": 10,
+      "type": "textuel et note"
+    },
+    {
+      "id": 250,
+      "DatePublication": "07/10/2019",
+      "ReseauSociaux": "Instagram",
+      "auteur": "Geekmovie",
+      "contenu": "Un film sombre et captivant. Joaquin Phoenix mérite toutes les récompenses!",
+      "note": 9,
+      "type": "textuel et note"
+    },
+    {
+      "id": 280,
+      "DatePublication": "20/10/2019",
+      "ReseauSociaux": "Twitter",
+      "auteur": "IloveMe",
+      "contenu": "Joaquin Phoenix livre une performance à couper le souffle. À voir absolument!",
+      "note": 10,
+      "type": "textuel et note"
+    }
+  ]
+})

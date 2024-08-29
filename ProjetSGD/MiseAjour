@@ -1,0 +1,51 @@
+//Ajout d'un commentaire aux film monk avec la méthode updateOne()
+db.CentreFilm.updateOne(
+  { "titre": "Monk" },
+  {
+    $push: {
+      "commentaires": {
+        "id": 30,
+        "DatePublication": "19/10/2021",
+        "ReseauSociaux": "Twitter",
+        "auteur": "Emile",
+        "contenu": "Un film qui mêle humour et suspense.",
+        "note": 8,
+        "type": "textuel et note"
+      }
+    }
+  }
+)
+//Modifier l ancienne note du commentaire de Guimzy avec la nouvelle note 6
+db.CentreFilm.updateOne(
+  { "titre": "Le parrain", "commentaires.auteur": "Guimzy" },
+  {
+    $set: {
+      "commentaires.$.note": 6
+    }
+  }
+)
+//Modifie la capacite de la salle 2 a 36 pour le film Breaking Bad
+//ATTENTION PEUT ENTRAINE UNE ERREUR
+db.CentreFilm.updateOne(
+    { "titre": "Breaking Bad", "salles.numero": 2 },
+    { $set: { "salles.$.capacite": 36 } }
+  )
+
+//Modifie le prix du billet du film Breaking Bad a 10
+db.CentreFilm.updateOne(
+    { "titre": "Breaking Bad" },
+    { $set: { "prixBillet": 10 } }
+  )
+//modifie l age de l'actrice Marion Brando 
+db.CentreFilm.updateOne({ "acteurs.nom": "Marlon Brando" },{ $set: { "acteurs.$.age": 48} })
+
+//modifie l age de l'actrice James Caan
+db.CentreFilm.updateOne({ "acteurs.nom": "James Caan" },{ $set: { "acteurs.$.age": 79 } })
+
+//modifie lu sexe de trois acteurs 
+db.CentreFilm.updateMany(
+   { "acteurs.nom": { $in: ["Zazie Beetz", "Robert De Niro", "Joaquin Phoenix"] } },
+   { $set: { "acteurs.$.sexe": "feminin" } }
+)
+//modifie l'ID du dernier document erroné de 20 a 40
+db.CentreFilm.updateOne({ "titre": "Joker" }, { $set: { "id": "40" } })

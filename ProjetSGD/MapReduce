@@ -1,0 +1,17 @@
+
+// map reduce pour afficher le nombre d'entree total de tout les films 
+var map = function() {
+    emit("total", this.nbEntree);
+};
+
+var reduce = function(key, values) {
+    return Array.sum(values);
+};
+
+db.CentreFilm.mapReduce(
+    map,
+    reduce,
+    {
+        out: { inline: 1 }
+    }
+);

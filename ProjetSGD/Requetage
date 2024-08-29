@@ -1,0 +1,87 @@
+//Requete de base
+Affichage uniquement du titre du livre ayant id:10 
+    ▪ db.CentreFilm.findOne({ id: 10 }, { titre: 1, _id: 0 })
+donne le nombre de documents de la collection 
+    ▪ db.CentreFilm.count()
+compte le nombre de film ayant comme genre le drame
+    ▪ db.CentreFilm.find({"genre":"drame"}).count(); 
+Affichage de toutes les informations sauf les acteurs 
+    ▪db.CentreFilm.findOne({"titre": "Le parrain"}, {"acteurs": 0})
+Recherche sur le nom de l acteur du film
+    ▪ db.CentreFilm.find({"acteurs.nom" : "Jason Gray"})
+Recherche de tous les films qui ont comme pays d origine les Etat-Unis.
+    ▪ db.CentreFilm.find({"paysOrigine" : "Etat-Unis"})
+Affichage des informations sur la collection créée : tri par inverse de l'ordre d insertion ($natural:-1) et affichage seulement des 2 premiers documents (limit(2)) affiche donc les deux dernier document
+    ▪ db.CentreFilm.find().sort({$natural: -1}).limit(2)
+utilisation de distinct pour obtenir des résultats sans doublons pour afficher tout les acteurs de tout les films
+    ▪ db.CentreFilm.distinct("acteurs.nom")
+Utilisation des opérateurs de comparaison pour afficher les titres des films dont la durée est supérieure à 1h20 minutes
+    ▪ db.CentreFilm.find({"duree": {$gt: 1.20}}, {"titre": 1, "_id": 0})
+Utilisation des opérateurs de comparaison pour afficher les films dont la durée est inférieure à 1h20 minutes
+    ▪ db.CentreFilm.find({"duree": {$lt: 1.20}})
+Utilisation des opérateurs de comparaison pour afficher les titres des films dont la durée est inférieure ou égale à 1h20 minutes
+    ▪ db.CentreFilm.find({"duree": {$lte: 1.20}}, {"titre": 1, "_id": 0})
+Utilisation des opérateurs de comparaison pour afficher les films dont la durée est supérieure ou égale à 1h20 minutes
+    ▪ db.CentreFilm.find({"duree": {$gte: 1.20}})
+Utilisation des opérateurs de comparaison pour afficher les films dont la durée est différente de 1h20 minutes
+    ▪ db.CentreFilm.find({"duree": {$ne: 1.20}}, {"titre": 1, "_id": 0})
+Utilisation des opérateurs de comparaison pour afficher les films dont la durée est comprise entre 1h20 et 1h50 minutes
+    ▪ db.CentreFilm.find({"duree": {$gt: 1.20, $lt: 1.50}}, {"titre": 1, "_id": 0})
+Utilisation d un tableau de valeurs à chercher pour afficher les films dont le genre est soit drame soit action
+    ▪ db.CentreFilm.find({"genre": {$in: ["drame", "action"]}})
+Utilisation d un tableau de valeurs à chercher pour afficher les titres des films dont le genre n est ni drame ni action
+    ▪ db.CentreFilm.find({"genre": {$nin: ["drame", "action"]}}, {"titre": 1, "_id": 0})
+Utilisation de l opérateur logique $or pour afficher les films dont le genre est soit drame soit action
+    ▪ db.CentreFilm.find({$or: [{"genre": "drame"}, {"genre": "action"}]})
+Utilisation de l opérateur logique $and pour afficher les films dont le genre est drame et la durée est supérieure à 1h20 minutes
+    ▪ db.CentreFilm.find({$and: [{"genre": "drame"}, {"duree": {$gt: 1.20}}]})
+Recherche des acteurs ayant entre 32 et 45 ans et affiche seulement leurs noms
+    ▪ db.CentreFilm.find({"acteurs.age": {$gt: 32, $lt: 45}}, {"acteurs.nom": 1, "_id": 0})
+Recherche des realisateurs ayant nombreFilms > 5 et afficher leurs noms
+    ▪ db.CentreFilm.find({"réalisateur.nombreFilms": {$gt: 5}}, {"réalisateur.nom": 1, "_id": 0})
+Utilisation de l opérateur $exists pour afficher les titres et récompenses des films ayant des reçus des recompenses 
+    ▪ db.CentreFilm.find({"Récompenses": {$exists: true}}, {"titre": 1, "Récompenses": 1, "_id": 0}).pretty()
+Utilisation de l opérateur $elemMatch pour afficher les noms et prénoms d acteurs dont le sexe est masculin et l âge est supérieur à 30 ans
+    ▪ db.CentreFilm.find({"acteurs": {$elemMatch: {"sexe": "masculin", "age": {$gt: 30}}}},{"acteurs.nom": 1, "acteurs.prénom": 1, "_id": 0})
+Utilisation d expressions régulières pour afficher les films dont le titre commence par "Le"
+    ▪ db.CentreFilm.find({"titre": /^Le/})
+
+//Requete avancee
+Utilisation de l agregation pour calculer le budget moyen des films qui ont un budget supérieur à 600 000 euros
+    ▪ db.CentreFilm.aggregate([{$match: {"budget": {$gt: 600000}}}, {$group: {_id: null, moyenne: {$avg: "$budget"}}}])
+Utilisation de l agregation pour afficher les films dont le genre est drame, les comptez et afficher leur nom par ordre croissant
+    ▪ db.CentreFilm.aggregate([{$match: {"genre": "drame"}}, {$group: {_id: "$titre", count: {$sum: 1}}}, {$sort: {_id: 1}}])
+Calcule le nombre d entree de tout les films de la collection l affiche et affiche le film avec le plus grand nombre d entree
+    ▪ db.CentreFilm.aggregate([ {$group: {_id: null, maxNbEntree: {$max: "$nbEntree"}, titre: {$first: "$titre"}}}, {$project: {_id: 0, maxNbEntree: 1, titre: 1}}])
+Affiche le titre des films dont le nombre de commentaires est superier a 10000000
+    ▪ db.CentreFilm.aggregate([{$match: {"nbCommentaire": {$gt: 10000000}}}, {$project: {_id: 0,titre: 1}}])
+Affiche la moyenne des notes des commentaires pour chaque film
+    ▪ db.CentreFilm.aggregate([{$unwind: "$commentaires"}, {$group: {_id: "$titre", moyenne: {$avg: "$commentaires.note"}}}])
+    Affiche l acteur le plus jeune et le plus vieux de tout les films
+    ▪ db.CentreFilm.aggregate([{$unwind: "$acteurs"}, {$group: {_id: null, plusJeune: {$min: "$acteurs.age"}, plusVieux: {$max: "$acteurs.age"}}}])
+Compte le nombre de film realise par paysOrigine
+    ▪ db.CentreFilm.aggregate([{$group: {_id: "$paysOrigine", count: {$sum: 1}}}, {$sort: {count: -1}}])
+Affiche le nombre total d acteur par sexe
+    ▪ db.CentreFilm.aggregate([{$unwind: "$acteurs"}, {$group: {_id: "$acteurs.sexe", count: {$sum: 1}}}, {$project: {sexe: "$_id", count: 1, _id: 0}}])
+Afficher le titre et le nombre du film avec le plus grand nombre de commentaires
+    ▪ db.CentreFilm.aggregate([{$project: {_id:0,titre: 1, nbCommentaire: {$size: "$commentaires"}}}, {$sort: {nbCommentaire: -1}}, {$limit: 1}])
+Calculer la moyenne de la duree des films de la collection
+    ▪ db.CentreFilm.aggregate([{$group: {_id: null, moyenne: {$avg: "$duree"}}}])
+Afficher les noms des acteurs ayant joue dans plus de 2 films et calculer leur age moyen
+    ▪ db.CentreFilm.aggregate([
+    {$unwind: "$acteurs"},
+    {$match: {"acteurs.nbFilmRealises": {$gt:2}}},
+    {$group:{
+        _id: null,
+        count: {$sum: 1},
+        ageTotal: {$sum: "$acteurs.age"}
+    }},
+    { $project:{
+        _id: 0,
+        nombreActeurs: "$count",
+        ageMoyenActeurs: {$divide:["$ageTotal", "$count"]}
+    }}
+])
+Affiche le reseaux social le plus utilise par les auteurs de commentaire
+    ▪ db.CentreFilm.aggregate([{ $unwind: "$commentaires" },{ $group: { _id: "$commentaires.ReseauSociaux", count: { $sum: 1 } } },{ $sort: { count: -1 } },{ $limit: 1 },{ $project: { _id: 0, ReseauSociaux: "$_id" } }])
+  
