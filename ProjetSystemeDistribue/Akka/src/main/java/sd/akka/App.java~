@@ -1,0 +1,184 @@
+package sd.akka;
+
+import java.sql.*;
+import java.time.Duration;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutionException;
+import java.util.Scanner;
+
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import akka.pattern.Patterns;
+import akka.routing.RoundRobinPool;
+import sd.akka.actor.*;
+import java.io.*;
+import java.lang.Thread;
+
+import static java.lang.Integer.parseInt;
+
+public class App {
+
+ private final int id = 3;
+    public static String[] RequêteBD(Connection con,String requete){
+
+        String [] strResult = new String[5];
+        try {
+
+            Statement statement = con.createStatement();
+            ResultSet resultat = statement.executeQuery(requete);
+
+
+            String nom = "";
+            String prenom = "";
+            String solde = "";
+            String idBanquier ="";
+            String idClient ="";
+            while (resultat.next()) {
+                nom = resultat.getString("nom");
+                prenom = resultat.getString("prenom");
+                solde = resultat.getString("solde");
+                idBanquier = resultat.getString("idbanquier");
+                idClient = resultat.getString("idclient");
+                strResult[0]= nom;
+                strResult[1]= prenom;
+                strResult[2]= solde;
+                strResult[3]=idBanquier;
+                strResult[4]=idClient;
+
+            }
+            statement.close();
+            resultat.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return strResult;
+    }
+/*
+  private static boolean checkDatabaseForId(Connection con, int id) {
+    try {
+        // Créez une requête SQL pour vérifier si l'ID existe dans la table CLIENT
+        String query = "SELECT * FROM CLIENT WHERE idClient = ?";
+        PreparedStatement stmt = con.prepareStatement(query);
+        stmt.setInt(1, id);
+
+        // Exécutez la requête et récupérez le résultat
+        ResultSet rs = stmt.executeQuery();
+
+        // Si le ResultSet contient au moins une ligne, cela signifie que l'ID existe
+        boolean idExists = rs.next();
+
+        // Fermez les ressources
+        rs.close();
+        stmt.close();
+
+        return idExists;
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}*/
+    public static void main(String[] args) throws InterruptedException {
+
+        ActorSystem system = ActorSystem.create("system");
+        ActorRef banqueActor = system.actorOf(BanqueActor.props(), "banque");//ajoute
+        ActorRef clientActor = system.actorOf(ClientActor.props(), "clientActor");
+        ActorRef banquierActor = system.actorOf(BanquierActor.props(), "banquierActor");
+       
+        clientActor.tell(id, banqueActor);
+        // On attend 1 seconde avant de terminer
+        Thread.sleep(1000);
+        System.out.println("Le client a reçu le message " + id + " + 4");
+        
+        //banqueActor.tell(new BanqueActor.SayHello("Hammani Assia"), ActorRef.noSender());
+        //clientActor.tell(new ClientActor.SayBye(), ActorRef.noSender());
+        //banquierActor.tell(new BanquierActor.SayIntermediaire(), ActorRef.noSender());
+            
+      
+
+        String url = "jdbc:oracle:thin:@butor:1521:ENSB2023";
+        String user = "ah975865";
+        String mdp = "ah975865";
+        Connection con = null;
+        Connection con1 = null;
+
+        try {
+            Class.forName("oracle.jdbc.driver.OracleDriver");
+            try {
+                con = DriverManager.getConnection(url, user, mdp);
+                //con1 = DriverManager.getConnection(url, user, mdp);
+                
+                
+                Statement stmtExecute = con.createStatement();
+            
+      /*
+        try{
+        //Scanner scanner = new Scanner(System.in);
+        //System.out.println("Veuillez entrer votre ID entre 1 et 6 :");
+        //int id = scanner.nextInt();
+        //clientActor.tell(new ClientActor.GetId(id),ActorRef.noSender());
+        System.out.println("Bonjour je suis la machine!");
+            
+            
+            
+
+        // Remplacer par votre logique de base de données
+        boolean idExists = checkDatabaseForId(con, id);
+
+        if (idExists) {
+            Statement statement = con.createStatement();
+            ResultSet resultat = statement.executeQuery("SELECT * FROM CLIENT WHERE idClient = " + id);
+        
+            String nom = "";
+            String solde = "";
+            
+             while (resultat.next()) {
+                String nomClient = resultat.getString("nom");
+                solde = resultat.getString("solde");
+                System.out.println(" Bonjour M." + nomClient + ", votre solde actuel est de : " + solde + " euros.");
+            }
+            
+            System.out.println("Veuillez entrer le type de transaction que vous souhaitez effectuer: (depot/retrait) :");
+            String transactionType = scanner.next();
+            System.out.println("Veuillez entrer le montant :");
+            int amount = scanner.nextInt();
+
+            ActorSystem system = ActorSystem.create("system");
+            ActorRef banqueActor = system.actorOf(BanqueActor.props(), "banqueActor");
+
+            banqueActor.tell(new BanqueActor.GetInfos(),ActorRef.noSender());
+            if(transactionType= 'depot'){
+            banqueActor.tell(new BanqueActor.DepotClient(),ActorRef.noSender());
+            }else{
+            banqueActor.tell(new BanqueActor.RetraitClient(),ActorRef.noSender());   
+            }
+            statement.close();
+            resultat.close(); 
+        } else {
+            System.out.println("ID non trouvé");
+        }
+        
+        }catch (SQLException e) {
+            e.printStackTrace(); 
+            throw e;
+        }
+*/
+             con.close(); 
+             System.exit(99);   
+                
+                
+            } catch (SQLException e) {
+                System.err.println("Connection a la base de donnees impossible");
+                System.exit(99);
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.err.println("Impossible de charger le pilote jdbc:odbc");
+             e.printStackTrace();
+            System.exit(99);
+        }
+        
+system.terminate();
+	}
+
+
+}
